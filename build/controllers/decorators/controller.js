@@ -34,7 +34,8 @@ function controller(routePrefix) {
             //insert Path into MetaData
             var path = Reflect.getMetadata(MetadataKey_1.Metadatakey.path, target.prototype, key);
             var method = Reflect.getMetadata(MetadataKey_1.Metadatakey.methmod, target.prototype, key);
-            var middlewares = Reflect.getMetadata(MetadataKey_1.Metadatakey.middleware, target.prototype, key) || [];
+            var middlewares = Reflect.getMetadata(MetadataKey_1.Metadatakey.middleware, target.prototype, key) ||
+                [];
             var requestBodyProps = Reflect.getMetadata(MetadataKey_1.Metadatakey.validator, target.prototype, key) || [];
             var validator = bodyValidtors(requestBodyProps);
             if (path) {

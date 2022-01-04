@@ -11,28 +11,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginController = void 0;
 var decorators_1 = require("./decorators");
-// function loger(req:Request,res:Response,next: NextFunction) {
-//   console.log("Request is made")
-//   next()
-// }
 var LoginController = /** @class */ (function () {
     function LoginController() {
     }
+    /**
+     *
+     * TODO:
+     * 1 build login page with tsc
+     *
+     */
     // @use(loger)
     LoginController.prototype.getLogin = function (req, res) {
         res.send("\n      <form method=\"POST\">\n        <div>\n          <label>Email</label>\n          <input name=\"email\" />\n        </div>\n        <div>\n          <label>Password</label>\n          <input name=\"password\" type=\"password\" />\n        </div>\n        <button>Submit</button>\n      </form>\n    ");
     };
     LoginController.prototype.postLogin = function (req, res) {
+        res.header('Access-Control-Allow-Origin', '*');
         var _a = req.body, email = _a.email, password = _a.password;
+        console.log('testtttt');
+        console.log(req.body);
         if (email === 'benshabi@outlook.com' && password === '123456') {
             //  mark this person logged in
             req.session = { IsLogged: true };
             //  redirect them on the root  route
             res.redirect('/');
+            res.status(200);
         }
         else {
             res.send("invalid email or password");
+            res.status(201);
         }
+    };
+    // @use(loger)
+    LoginController.prototype.getRegister = function (req, res) {
+        res.send("\n      <form method=\"POST\">\n      <h1>Register</h1>\n      <div>\n        <label>Full name:</label>\n        <input name=\"fullName\" />\n      </div>\n\n        <div>\n          <label>Email</label>\n          <input name=\"email\" />\n        </div>\n        <div>\n        <label>Team Name</label>\n        <input name=\"teamName\" />\n      </div>\n        <div>\n          <label>Password</label>\n          <input name=\"password\" type=\"password\" />\n        </div>\n        <button>Submit</button>\n      </form>\n    ");
+    };
+    LoginController.prototype.postRegister = function (req, res) {
+        var _a = req.body, fullName = _a.fullName, email = _a.email, password = _a.password, nameTeam = _a.nameTeam;
+        console.log(req.body);
+        res.send("<div>Hii</div>");
     };
     LoginController.prototype.getLogout = function (req, res) {
         req.session = undefined;
@@ -51,6 +67,19 @@ var LoginController = /** @class */ (function () {
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], LoginController.prototype, "postLogin", null);
+    __decorate([
+        (0, decorators_1.get)('/register'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", void 0)
+    ], LoginController.prototype, "getRegister", null);
+    __decorate([
+        (0, decorators_1.post)('/register'),
+        (0, decorators_1.bodyValidtor)('fullName', 'email', 'nameTeam', 'password'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", void 0)
+    ], LoginController.prototype, "postRegister", null);
     __decorate([
         (0, decorators_1.get)('/logout'),
         __metadata("design:type", Function),
